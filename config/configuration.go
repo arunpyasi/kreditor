@@ -5,8 +5,10 @@ import (
 )
 
 type Configuration struct {
-	DatabaseURI string
-	Secret      string
+	DatabaseURI   string
+	ListenAddress string
+	Secret        string
+	Debug         bool
 }
 
 var C = Configuration{}
@@ -17,8 +19,12 @@ func getEnv(variable string) string {
 }
 
 func init() {
-
 	C.DatabaseURI = getEnv("DATABASE_URI")
 	C.Secret = getEnv("SECRET")
+	C.ListenAddress = getEnv("LISTEN_ADDRESS")
+
+	if getEnv("DEBUG") != "" {
+		C.Debug = false
+	}
 
 }
