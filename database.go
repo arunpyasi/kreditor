@@ -24,8 +24,10 @@ func init() {
 
 	Database, err = gorm.Open("mysql", config.C.DatabaseURI+"?charset=utf8&parseTime=True&loc=Local")
 
-	Database.Debug()
-	Database.LogMode(true)
+	if config.C.Debug {
+		Database.Debug()
+		Database.LogMode(true)
+	}
 
 	if err != nil {
 		panic("Failed to connect database:" + err.Error())
