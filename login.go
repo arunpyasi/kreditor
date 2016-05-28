@@ -16,14 +16,10 @@ var CsrfOptions csrf.Options
 //AuthRequired is authentication middleware for user authenticaton.
 func AuthRequired() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Println("Aahh AUTHREQUIRED")
-		username := getLoginUsername(c)
+		// username := getLoginUsername(c)
 
 		//_, err := getUserByUsername(username)
 		userID := getUserID(c)
-
-		fmt.Println("userID is nu ", userID)
-		fmt.Println("username is nu ", username)
 
 		if userID > 0 {
 			c.Next()
@@ -54,11 +50,11 @@ func CheckPassword(username string, password string) (bool, User) {
 	compareErr := bcrypt.CompareHashAndPassword([]byte(user.Hash), []byte(password))
 
 	if compareErr != nil {
-		fmt.Println("compareErr")
-		fmt.Println(compareErr)
+		// fmt.Println("compareErr")
+		// fmt.Println(compareErr)
 		return false, user
 	} else {
-		fmt.Println("NO compareErr")
+		// fmt.Println("NO compareErr")
 		return true, user
 	}
 
@@ -69,14 +65,14 @@ func CheckPassword(username string, password string) (bool, User) {
 }
 
 func getUserID(c *gin.Context) int {
-	fmt.Println("getUserID before session")
+	// fmt.Println("getUserID before session")
 	session := sessions.Default(c)
-	fmt.Println("getUserID after session")
+	// fmt.Println("getUserID after session")
 
 	if session.Get("userID") != nil {
 		return session.Get("userID").(int)
 	} else {
-		fmt.Println("Session is wel nil, dus 0 returnen")
+		// fmt.Println("Session is wel nil, dus 0 returnen")
 		return 0
 	}
 }
@@ -129,7 +125,7 @@ func loginInit(r *gin.Engine) {
 
 			if check {
 				session := sessions.Default(c)
-				fmt.Println("Setting username " + username)
+				// fmt.Println("Setting username " + username)
 				session.Set("userID", user.Id)
 				session.Save()
 				fmt.Println("Creating session for " + getLoginUsername(c))
