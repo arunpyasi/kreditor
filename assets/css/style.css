@@ -1,0 +1,73 @@
+/*.uk-modal-dialog {
+    background: #474747;
+}
+.uk-modal-header, .uk-modal-footer {
+    background: #303030;
+}*/
+html, body {
+    height: 100%;
+}
+.logo {
+    text-decoration: none;
+    background-color: rgba(255,255,255,0.05);
+    color: #fff;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.7vw;
+}
+.logo a {
+    text-decoration: none;
+    color: #fff;
+}
+.tm-main {
+    padding-top: 10px;
+    padding-left: 60px;
+    padding-right: 30px;
+}
+.panelitem {
+    width: 400px;
+    padding: 20px;
+}
+.tm-sidebar .fa {
+    padding-right: 10px;
+    min-width: 1.4em;
+}
+.tm-sidebar {
+    height:100vh;
+    position: fixed;
+}
+.tm-profile {
+    bottom: 0px;
+    position: fixed;
+}
+.tm-nav li a {
+    padding-left: 1.5em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    color: #ddd;
+}
+
+@media all and (min-width: 960px) {
+.tm-nav li a {
+    font-size: 1.3em;
+  }
+}
+
+@media all and (max-width: 959px) and (min-width: 50px) {
+.tm-nav li a {
+    font-size: 1em;
+  }
+}
+
+
+
+
+.uk-nav-header {
+    font-size: 1.4vw;
+    color: #ccc;
+}
+.tm-nav li a:hover {
+    background: rgba(0,0,0,0.2);
+    color: #fff !important;
+}
