@@ -35,23 +35,6 @@ func init() {
 
 }
 
-// func initDb() *gorp.DbMap {
-// 	fmt.Println("initialize database")
-// 	// connect to db using standard Go database/sql API
-// 	// use whatever database/sql driver you wish
-// 	connectionString := "root:" + os.Getenv("KREDITOR_MYSQL_PASS") + "@tcp(localhost:3306)/kreditor?charset=utf8&parseTime=True"
-// 	db, err := sql.Open("mysql", connectionString)
-// 	if err != nil {
-// 		//fmt.Println(err, "sql.Open failed")
-// 		panic(err)
-// 	}
-// 	// construct a gorp DbMap
-// 	dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{"InnoDB", "UTF-8"}}
-//
-// 	dbmap.AddTableWithName(Debt{}, "debt").SetKeys(false, "id")
-// 	return dbmap
-// }
-
 func (d Debt) Delete() error {
 	Database.First(&d)
 	Database.Delete(&d)
@@ -93,7 +76,6 @@ func GetDebtsByName(ownerid int, debtor string) (debts []Debt, err error) {
 func GetLinkedDebts(ownerid int) []linkedDebt {
 	//myOwnName := "Mike de Heij"
 	myOwnName := GetUser(ownerid).Name
-	fmt.Println("My own name is", myOwnName)
 
 	var contactsWithLink []Contact
 	Database.Where("owner_id = ? AND user_id > 0", ownerid).Find(&contactsWithLink)
@@ -102,7 +84,6 @@ func GetLinkedDebts(ownerid int) []linkedDebt {
 
 	for _, c := range contactsWithLink {
 		var debts []Debt
-		fmt.Println("Looping over", c.Name, "which is", c.UserID)
 		Database.Where("owner_id = ? AND debtor = ? AND paid = 0", c.UserID, myOwnName).Find(&debts)
 		for _, debt := range debts {
 			var linkedDebt linkedDebt
