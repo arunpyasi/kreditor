@@ -1,3 +1,4 @@
+<img align="right" src="https://kreditor.nl/assets/img/kreditor.svg">
 # Kreditor
 
 Kreditor is a lightweight web application and API for keeping track of debts.
