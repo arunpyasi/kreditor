@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html class="uk-height-1-1">
+    {{ template "head.html" }}
+    <style>
+    html {
+        background: #0088cc url("/assets/img/bg_teaser.svg") 50% 50% no-repeat; }
+    }
+    .deathly-shadow{
+        box-shadow: 0px 0px 16px 4px rgba(0,0,0,0.25);
+    }
+    </style>
+    <script type="text/javascript">
+    $(function() {
+        if ($(location).attr('href').indexOf('invalidpassword') >= 0) {
+            console.log("InvalidPass!");
+            $("#errorPlaceholder").replaceWith('<div class="deathly-shadow uk-alert uk-alert-danger" data-uk-alert=""><p>Invalid credentials or insufficient rights!</p></div>');
+        }
+    });
+    </script>
+    <body ng-controller="MainCtrl" class="uk-height-1-1">
+        <div class="uk-vertical-align uk-text-center uk-height-1-1">
+            <div class="uk-vertical-align-middle" style="width: 80%; max-width: 470px;" onload="document.loginForm.username.focus()">
+                  <div id="errorPlaceholder"></div>
+                <div class="deathly-shadow uk-panel uk-panel-box" style="padding: 50px;">
+                    <form class="uk-form" name="loginForm" action="/auth/" method="POST">
+                        <div class="uk-form-row">
+                            <input class="uk-width-1-1 uk-form-large" name="username" value="{{.user}}" type="text" style="width: 100%" placeholder="Username"/>
+                        </div>
+                        <div class="uk-form-row">
+                            <input class="uk-width-1-1 uk-form-large" type="password" name="password" style="width: 100%" placeholder="Password"/>
+                        </div>
+                        <div class="uk-form-row">
+                            <div class="uk-text-center">
+                                <button type="submit" class="uk-button uk-button-primary uk-button-large uk-width-1-1">
+                                Login
+                                </button>
+                            </div>
+                        </div>
+                        <input value="{{ .csrf }}" type="hidden" name="_csrf" style="display:none"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

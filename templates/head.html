@@ -1,0 +1,31 @@
+<head>
+    <meta charset="utf-8">
+    <title>Kreditor</title>
+    <link rel="stylesheet" href="/assets/css/uikit-norm-opensans.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <script src="/assets/js/lib/jquery.js"></script>
+    <script src="/assets/js/lib/angular.min.js"></script>
+
+    <script src="/assets/js/lib/angular-resource.min.js"></script>
+    <script src="/assets/js/lib/uikit.min.js"></script>
+
+    <script src="/assets/appController.js"></script>
+    <script src="/assets/debtController.js"></script>
+    <script src="/assets/invoiceController.js"></script>
+    <script src="/assets/contactController.js"></script>
+    <script src="/assets/userController.js"></script>
+    <script src="/assets/profileController.js"></script>
+
+    <!-- <script src="/assets/js/lib/sticky.js"></script> -->
+    <!-- <script src="/assets/js/lib/autocomplete.js"></script> -->
+    <script src="/assets/js/lib/accordion.js"></script>
+    <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .tm-sidebar {
+            {{with .RequestVariables.User.SidebarColor }}background:{{ else }}background: #2B333D;{{end}}{{ .RequestVariables.User.SidebarColor }};
+        }
+
+    </style>
+</head>

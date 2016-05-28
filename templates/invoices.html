@@ -1,0 +1,72 @@
+{{ template "begin.html" . }}
+                            <div class="uk-float-right">
+                                <button class="uk-button uk-button-large uk-button-primary" ng-click="openAddModel()" type="button">Create new invoice</button>
+                            </div>
+
+
+                            <h1>Invoices</h1>
+
+                            <table class="uk-table uk-table-striped" >
+                                    <thead>
+                                        <tr>
+                                            <th width="15%">Debtor</th>
+                                            <th width="15%" class="uk-hidden-small">Timestamp</th>
+                                            <th width="30%">Link</th>
+                                            <th width="20%">Include external debts?</th>
+                                            <th width="20%">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="b in invoices">
+                                            <td>{{"{{"}} b.Debtor {{"}}"}}</td>
+                                            <td class="uk-hidden-small">{{"{{"}} b.Created {{"}}"}}</td>
+                                            <td><a ng-click="openInvoice(b.Link);">{{"{{"}} b.Link {{"}}"}}</a></td>
+                                            <td><i class="fa fa-check" ng-show="b.IncludeLinks" aria-hidden="true"></i></td>
+                                            <td><button class="uk-button uk-button-danger" ng-click="update(b)" type="button"><i class="fa fa-refresh" aria-hidden="true"></i> <span class="uk-hidden-small">Regenerate</span></button>
+                                                <button class="uk-button uk-button-danger" ng-click="remove(b)" type="button"><i class="fa fa-trash-o" aria-hidden="true"></i> <span class="uk-hidden-small">Delete</span></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+
+
+
+                                <div id="newInvoice"  class="uk-modal">
+                                    <div class="uk-modal-dialog">
+
+                                        <div class="uk-modal-header"><h1>Create new invoice </h1></div>
+
+                                        <form class="uk-form uk-form-horizontal">
+                                                <div class="uk-form-row">
+                                                    <label class="uk-form-label" for="form-h-it">Debtor</label>
+                                                    <div class="uk-form-controls">
+                                                        <select ng-model="selectedObject.Debtor" class="uk-form-width-large">
+                                                            {{range $element := .contacts  }}
+                                                                <option value="{{ $element.Name }}">{{ $element.Name }}</option>
+                                                            {{ end }}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="uk-form-row">
+                                                    <label class="uk-form-label" for="form-h-it">Include Links (external debts)?</label>
+                                                    <div class="uk-form-controls uk-form-controls-text">
+                                                        <label class="uk-margin-small-top"><input type="checkbox" ng-model="selectedObject.IncludeLinks"> Include external debts</label>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+
+                                        <div class="uk-modal-footer">
+                                            <div class="uk-modal-footer uk-text-right">
+                                                        <button type="button" class="uk-button uk-modal-close">Cancel</button>
+                                                        <button type="button" ng-click="add()" class="uk-button uk-button-primary">Save</button>
+                                            </div>
+                                            <!-- <button type="button" class="uk-button uk-modal-close">Cancel</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+{{ template "end.html" . }}

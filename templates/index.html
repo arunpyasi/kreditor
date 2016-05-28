@@ -1,0 +1,56 @@
+{{ template "begin.html" . }}
+                            <div class="uk-float-right">
+                                <button class="uk-button uk-button-large uk-button-primary" ng-click="openAddModel()" type="button">Create new debt</button>
+                            </div>
+
+
+                            <h1>Debts</h1>
+
+                            <ul class="uk-tab uk-width-medium-10-10" data-uk-tab>
+                                    <li class="uk-active"><a href="#" ng-click="selectedFinishedDebt = false;">Unfinished</a></li>
+                                    <li><a href="#" ng-click="selectedFinishedDebt = true;">Finished</a></li>
+                            </ul>
+
+                            <table class="uk-table uk-table-hover uk-table-striped" >
+                                    <thead>
+                                        <tr>
+                                            <th width="20%">Debtor</th>
+                                            <th width="20%">Amount</th>
+                                            <th width="50%">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="b in debts" ng-click="openUpdateModal(b)" ng-if="b.Paid == selectedFinishedDebt">
+                                            <td>{{"{{"}} b.Debtor {{"}}"}}</td>
+                                            <td ng-style="negativeValue(b.Amount)"><i class="fa" ng-class="arrowIcon(b.Amount)"></i> {{"{{"}} b.Amount {{"}}"}}</td>
+                                            <td>{{"{{"}} b.Description {{"}}"}}</td>
+                                        </tr>
+                                    </tbody>
+                            </table>
+
+                            <div ng-show="debtlinks.length > 0">
+                            <h1>External debts</h1>
+                            <ul class="uk-tab uk-width-medium-10-10" data-uk-tab>
+                                    <li class="uk-active"><a href="#">Linked</a></li>
+
+                            </ul>
+                            <table class="uk-table uk-table-striped" >
+                                    <thead>
+                                        <tr>
+                                            <th width="20%">Owner</th>
+                                            <th width="20%">Amount</th>
+                                            <th width="50%">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="b in debtlinks">
+                                            <td>{{"{{"}} b.Owner {{"}}"}}</td>
+                                            <td ng-style="negativeValue(-b.Amount)"><i class="fa" ng-class="arrowIcon(-b.Amount)"></i> {{"{{"}} b.Amount {{"}}"}}</td>
+                                            <td>{{"{{"}} b.Description {{"}}"}}</td>
+                                        </tr>
+                                    </tbody>
+                            </table>
+                            </div>
+
+{{ template "debtmodal.html" . }}
+{{ template "end.html" . }}

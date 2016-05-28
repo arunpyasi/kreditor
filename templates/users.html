@@ -1,0 +1,28 @@
+{{ template "begin.html" . }}
+                            <div class="uk-float-right">
+                                <button class="uk-button uk-button-large uk-button-primary" ng-click="add()" type="button">Create new user</button>
+                            </div>
+
+
+                            <h1>Users</h1>
+
+                            <table class="uk-table uk-table-hover uk-table-striped" >
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Username</th>
+                                            <th>Administrator</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="c in invoices">
+                                            <td>{{"{{"}} c.id {{"}}"}}</td>
+                                            <td>{{"{{"}} c.Username {{"}}"}}</td>
+                                            <td>{{"{{"}} c.Administrator {{"}}"}}</td>
+                                            <td> <button class="uk-button uk-button-danger" ng-click="remove(c)" type="button"><i class="fa fa-trash-o" aria-hidden="true"></i> <span class="uk-hidden-small">Delete</span></button> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+{{ template "end.html" . }}

@@ -1,0 +1,9 @@
+<nav class="uk-navbar uk-visible-small">
+    <ul class="uk-navbar-nav">
+        {{range $element := .RequestVariables.Navigation}}
+            <li><a href="{{ $element.Href }}"><i class="fa {{ $element.Icon }}" aria-hidden="true"></i></a></li>
+        {{ end }}
+            <li><a href="/profile"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+            <li><a href="/auth/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+    </ul>
+</nav>

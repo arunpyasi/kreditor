@@ -1,0 +1,23 @@
+<div class="uk-width-medium-1-6">
+    <div class="tm-sidebar uk-width-medium-1-6 uk-hidden-small uk-row-first" data-uk-sticky ng-style="myStyle">
+        <ul class="tm-nav uk-nav" data-uk-nav="">
+            <li><h1 class="logo" onclick="window.location.assign('/home');">Kreditor</h1></li>
+            <li class="uk-nav-header">Navigation</li>
+
+            {{range $element := .RequestVariables.Navigation}}
+                <li><a href="{{ $element.Href }}"><i class="fa {{ $element.Icon }}" aria-hidden="true"></i> {{ $element.Name }}</a></li>
+            {{ end }}
+
+        </ul>
+
+        <div class="tm-profile uk-width-medium-1-6">
+            <ul class="tm-nav uk-nav" data-uk-nav="">
+                    <li><a href="/profile"><i class="fa fa-user" aria-hidden="true"></i> {{ .RequestVariables.User.Username }}</a></li>
+                    <li><a href="/auth/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+            </ul>
+        </div>
+
+
+    </div>
+
+</div>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+    {{ template "head.html" . }}
+        <body ng-controller="{{ .controller }}">
+
+                {{ template "nav.html" . }}
+                <div class="uk-grid" data-uk-grid-margin="">
+                    {{ template "sidebar.html" . }}
+                    <div class="tm-main uk-width-medium-5-6">
+                        <!-- Hier moet een uk-container oid, zodat mobile responsive is met goede left and right padding -->
+                        <article class="uk-article">

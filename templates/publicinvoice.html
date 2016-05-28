@@ -1,0 +1,150 @@
+<head>
+    <title>Visualisation &amp; Application</title>
+    <link rel="stylesheet" href="/assets/css/uikit-norm-opensans.min.css">
+    <link rel="stylesheet" href="/assets/css/patches.css">
+
+    <script src="/assets/js/lib/jquery.js"></script>
+    <script src="/assets/js/lib/uikit.min.js"></script>
+    <script src="/assets/js/lib/qrcode.min.js"></script>
+    <style>
+    #qrcode img {
+        display:block;
+        margin:auto;
+    }
+    </style>
+    <style>
+    {{ .userCSS }}
+    </style>
+</head>
+
+<body>
+
+<textarea id="text" type="text" style="display: none;">{{ .INGQRcode }}</textarea>
+<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+    <div class="uk-float-right">
+        <button class="uk-button uk-button-large" style="background-color: #ff5812 !important; color: #fff;" onclick="UIkit.modal('#INGQR').show()" type="button">ING Mobile QR code</button>
+    </div>
+
+<h1>Invoice for {{ .invoice.Debtor }}</h1>
+{{ if .invoice.IncludeLinks }}<div class="uk-alert uk-alert-warning">This invoice includes linked debts from other Kreditor users</div>{{ end }}
+
+
+<!-- <pre>{{ .invoice }}</pre> -->
+
+
+    <!-- This is the modal -->
+    <div id="INGQR" class="uk-modal">
+        <div class="uk-modal-dialog uk-modal-dialog-lightbox" style="text-align: center; padding: 50px;">
+            <a href="" class="uk-modal-close uk-close uk-close-alt"></a>
+            <h1>ING Mobiel Bankieren</h1>
+
+                <div id="qrcode" style="padding: 50px;"></div>
+        </div>
+    </div>
+
+
+<table class="uk-table uk-table-hover uk-table-striped" >
+        <thead>
+            <tr>
+                <!-- <th>Identifier</th> -->
+                <!-- <th width="30%">Debtor</th> -->
+                <th width="50%">Description</th>
+                <th width="10%">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range $element := .invoice.Debts}}
+                <!-- <li>{{ $element.Description }}</a></li> -->
+                <tr>
+                    <!-- <td>{{ $element.Id }}</td> -->
+                    <!-- <td>{{ $element.Debtor }}</td> -->
+                    <td>{{ $element.Description }}</td>
+                    <!-- <td>&euro; {{ $element.Amount }}</td> -->
+                    <td>&euro; {{printf "%.2f" ($element.Amount)}}</td>
+
+                </tr>
+            {{ end }}
+
+            {{range $element := .invoice.LinkedDebts}}
+                <!-- <li>{{ $element.Description }}</a></li> -->
+                <tr style="background-color: #fee;">
+                    <!-- <td>{{ $element.Id }}</td> -->
+                    <!-- <td>{{ $element.Owner }}</td> -->
+                    <td>{{ $element.Description }}</td>
+                    <!-- <td>&euro; {{ $element.Amount }}</td> -->
+                    <td>&euro; {{printf "%.2f" ($element.Amount)}}</td>
+
+                </tr>
+            {{ end }}
+
+        </tbody>
+        <tfoot style="font-size: 20px; font-style: normal;">
+                {{ if .invoice.IncludeLinks }}
+                <tr>
+                    <!-- <td></td> -->
+                    <!-- <td></td> -->
+                    <td><span class="uk-float-right">Linked total:</span></td>
+                    <td>&euro; {{printf "%.2f" (.invoice.LinkedTotal)}}</td>
+                </tr>
+                {{ end }}
+                <tr>
+                    <!-- <td></td> -->
+                    <!-- <td></td> -->
+                    <td><span class="uk-float-right">Subtotal:</span></td>
+                    <td>&euro; {{printf "%.2f" (.invoice.Subtotal)}}</td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <!-- <td></td> -->
+                    <!-- <td></td> -->
+                    <td><span class="uk-float-right">Total:</span></td>
+                    <td>&euro; {{printf "%.2f" (.invoice.Total)}}</td>
+                </tr>
+        </tfoot>
+    </table>
+
+    {{if le .invoice.Total 0.00 }}
+    <div class="uk-alert uk-alert-success">This invoice has a negative total. This means you will receive a payment from the owner soon.</div>
+    {{else}}
+    <div class="uk-alert uk-alert-large">
+        <h2>Pending invoice</h2>
+        <p>{{ .invoice.Owner.Name}}<br/>
+            {{ .invoice.Owner.IBAN}}</p>
+    </div>
+    {{end}}
+
+
+    <!-- <pre>
+        {{ .linkeddebts }}
+    </pre> -->
+
+    <div id="ingQR">
+
+
+    </div>
+
+    <script type="text/javascript">
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+    	width : 450,
+    	height : 450
+    });
+
+    function makeCode () {
+    	var elText = document.getElementById("text");
+        if (elText != undefined) {
+         	qrcode.makeCode(elText.value);
+        } else {
+            $('#ingQR').remove();
+        }
+    }
+
+    makeCode();
+
+    </script>
+
+
+
+</div>
+
+
+
+</body>
