@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/mdeheij/kreditor/config"
 	"github.com/mdeheij/kreditor/utils"
 	"html/template"
 )
@@ -10,6 +11,12 @@ import (
 var router *gin.Engine
 
 func main() {
+	if config.C.Debug {
+		gin.SetMode(gin.DebugMode)
+	} else {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
 	router = gin.Default()
 
 	//	router.NoRoute(homepage)
@@ -76,7 +83,7 @@ func main() {
 		adminGroup.DELETE("/user/:id", routeDeleteUser)
 	}
 
-	router.Run()
+	router.Run(config.C.ListenAddress)
 	// router.Run(":3000") for a hard coded port
 }
 
@@ -448,10 +455,10 @@ type PageVariables struct {
 
 //GetPageVariables generates and returs PageVariables data
 func GetPageVariables(c *gin.Context) PageVariables {
-	fmt.Println("RequestVariables")
+	// fmt.Println("RequestVariables")
 	userID := getUserID(c)
 	user := GetUser(userID)
-	fmt.Println("SidebarColor:", user.SidebarColor)
+	// fmt.Println("SidebarColor:", user.SidebarColor)
 	vars := PageVariables{UserID: userID, User: user, Navigation: getNavigation(user)}
 	return vars
 }
