@@ -12,17 +12,3 @@ export KREDITOR_DEBUG="yes" #Optional variable for debugging.
 
 ./kreditor
 ```
-
-### Building
-
-```sh
-$ go get https://github.com/mdeheij/kreditor.git
-$ cd kreditor
-$ go build
-```
-### Development
-
-Want to contribute? Great!
-
-### Docker
-Kreditor is very easy to install and deploy in a Docker container. Documentation is coming soon.
